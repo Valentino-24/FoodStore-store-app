@@ -4,7 +4,6 @@ import { CartItem, User, DeliveryAddress } from '../types';
 
 interface StoreState {
   // Auth
-  token: string | null;
   user: User | null;
   
   // Cart
@@ -23,7 +22,7 @@ interface StoreState {
   
   // Auth actions
   setUser: (user: User) => void;
-  login: (token: string, user: User) => void;
+  login: (user: User) => void;
   logout: () => void;
   
   // Address actions
@@ -37,7 +36,6 @@ export const useStore = create<StoreState>()(
   persist(
     (set, get) => ({
       // Auth state
-      token: null,
       user: null,
       
       // Cart state
@@ -87,15 +85,12 @@ export const useStore = create<StoreState>()(
       // ========== AUTH ACTIONS ==========
       setUser: (user: User) => set({ user }),
 
-      login: (token: string, user: User) => {
-        localStorage.setItem('token', token);
-        set({ token, user });
+      login: (user: User) => {
+        set({ user });
       },
 
       logout: () => {
-        localStorage.removeItem('token');
         set({
-          token: null,
           user: null,
           items: [],
           total: 0,
@@ -131,7 +126,6 @@ export const useStore = create<StoreState>()(
     {
       name: 'foodstore-app-store',
       partialize: (state) => ({
-        token: state.token,
         user: state.user,
         items: state.items,
         total: state.total,

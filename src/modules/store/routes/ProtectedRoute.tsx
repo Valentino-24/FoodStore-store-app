@@ -3,10 +3,10 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 
 const ProtectedRoute: FC = () => {
-  const token = useStore((state) => state.token);
+  const user = useStore((state) => state.user);
   const location = useLocation();
 
-  if (!token) {
+  if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

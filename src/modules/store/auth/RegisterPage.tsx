@@ -39,9 +39,8 @@ const RegisterPage: FC = () => {
 
     setIsLoading(true);
     try {
-      const res = await storeApi.register({ email, password, full_name: fullName });
-      const userProfile = await storeApi.getMe();
-      loginAction(res.access_token, userProfile);
+      const userProfile = await storeApi.register({ email, password, nombre: fullName });
+      loginAction(userProfile);
       setSuccess(true);
       setTimeout(() => navigate('/store', { replace: true }), 1200);
     } catch (err) {

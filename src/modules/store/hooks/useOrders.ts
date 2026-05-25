@@ -11,15 +11,15 @@ import { useStore } from '../store/useStore';
 import { Order } from '../types';
 
 export const useOrders = (): UseQueryResult<Order[], Error> => {
-  const token = useStore((state) => state.token);
+  const user = useStore((state) => state.user);
   
   return useQuery({
-    queryKey: ['orders', token],
+    queryKey: ['orders', user?.id],
     queryFn: async () => {
       const response = await storeApi.getOrders();
       return response.data;
     },
-    enabled: !!token,
+    enabled: !!user,
     staleTime: 1000 * 60 * 2, // 2 minutes
     gcTime: 1000 * 60 * 5, // 5 minutes
   });
@@ -28,16 +28,16 @@ export const useOrders = (): UseQueryResult<Order[], Error> => {
 export const useOrderById = (
   id: string | undefined
 ): UseQueryResult<Order, Error> => {
-  const token = useStore((state) => state.token);
+  const user = useStore((state) => state.user);
   
   return useQuery({
-    queryKey: ['orders', id, token],
+    queryKey: ['orders', id, user?.id],
     queryFn: async () => {
       if (!id) throw new Error('Order ID is required');
       const response = await storeApi.getOrderById(id);
       return response.data;
     },
-    enabled: !!id && !!token,
+    enabled: !!id && !!user,
     staleTime: 1000 * 60 * 5,
   });
 };
@@ -66,21 +66,3 @@ export const useCreateOrder = (): UseMutationResult<
   });
 };
 
-export const useUpdateOrder = (): UseMutationResult<
-  Order,
-  Error,
-  { id: string; data: any }
-> => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: ({ id, data }) =>
-      storeApi.updateOrder(id, data).then(res => res.data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
-    },
-    onError: (error: Error) => {
-      console.error('Error updating order:', error.message);
-    },
-  });
-};

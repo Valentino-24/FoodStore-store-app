@@ -12,7 +12,7 @@ import ProtectedRoute from './ProtectedRoute';
 const StoreRoutes: FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomeStore />} />
+      <Route path="" element={<HomeStore />} />
       <Route path="products/:productId" element={<ProductDetail />} />
 
       <Route element={<ProtectedRoute />}>

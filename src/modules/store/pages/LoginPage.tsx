@@ -2,6 +2,7 @@ import { FC, FormEvent, useState } from 'react';
 import { useNavigate, useLocation, Location, Link } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import { storeApi } from '../api/storeApi';
+import type { User } from '../types';
 
 const LoginPage: FC = () => {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ const LoginPage: FC = () => {
     setIsLoading(true);
 
     try {
+      let userProfile: User;
+
       if (isRegister) {
         // REGISTER FLOW
         if (!fullName.trim()) {
@@ -32,19 +35,17 @@ const LoginPage: FC = () => {
           return;
         }
         
-        const res = await storeApi.register({ 
+        userProfile = await storeApi.register({ 
           email, 
           password, 
-          full_name: fullName 
+          nombre: fullName 
         });
-        const userProfile = await storeApi.getMe();
-        loginAction(res.access_token, userProfile);
       } else {
         // LOGIN FLOW
-        const res = await storeApi.login({ email, password });
-        const userProfile = await storeApi.getMe();
-        loginAction(res.access_token, userProfile);
+        userProfile = await storeApi.login({ email, password });
       }
+
+      loginAction(userProfile);
       navigate(from, { replace: true });
     } catch (err) {
       console.error('Error de autenticación:', err);

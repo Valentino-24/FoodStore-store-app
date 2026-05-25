@@ -5,7 +5,6 @@ import { storeApi } from '../api/storeApi';
 
 const Navbar: FC = () => {
   const items = useStore((state) => state.items);
-  const token = useStore((state) => state.token);
   const user = useStore((state) => state.user);
   const logoutAction = useStore((state) => state.logout);
   const location = useLocation();
@@ -62,7 +61,7 @@ const Navbar: FC = () => {
               Catálogo
             </Link>
             
-            {token && (
+            {user && (
               <Link
                 to="/store/orders"
                 className={`text-sm font-semibold transition px-1 py-2 border-b-2 ${
@@ -97,7 +96,7 @@ const Navbar: FC = () => {
             </Link>
 
             {/* User Profile & Auth Button */}
-            {token && user ? (
+            {user ? (
               <div className="flex items-center gap-3 ml-4">
                 <div className="hidden sm:flex flex-col items-end">
                   <span className="text-xs font-semibold text-slate-600">

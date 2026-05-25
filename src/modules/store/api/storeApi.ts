@@ -25,7 +25,7 @@ const mapProduct = (p: any): Product => ({
   name: p.nombre,
   description: p.descripcion || '',
   price: Number(p.precio_base),
-  image: p.imagenes?.length ? p.imagenes[0] : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=60',
+  image: p.imagenes || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=60',
   stock: Number(p.stock_cantidad || 0),
   category: p.categorias?.find((c: any) => c.es_principal)?.nombre || '',
   categories: p.categorias?.map((c: any) => ({
@@ -119,10 +119,10 @@ export const storeApi = {
 
   // ========== CATEGORÍAS ==========
   getCategories: async (): Promise<ApiResponse<Category[]>> => {
-    const response = await axiosInstance.get<any[]>('/categorias');
+    const response = await axiosInstance.get<{ items: any[] }>('/categorias');
     return {
       success: true,
-      data: response.data?.map((c: any) => ({
+      data: response.data.items?.map((c: any) => ({
         id: c.id,
         nombre: c.nombre,
         descripcion: c.descripcion || '',
@@ -196,14 +196,6 @@ export const storeApi = {
     };
   },
 
-  updateOrder: async (id: string, orderData: any): Promise<ApiResponse<Order>> => {
-    const response = await axiosInstance.put<any>(`/pedidos/${id}`, orderData);
-    return {
-      success: true,
-      data: mapOrder(response.data),
-    };
-  },
-
   // ========== DIRECCIONES ==========
   createAddress: async (addressData: {
     alias: string;
@@ -240,22 +232,18 @@ export const storeApi = {
   },
 
   // ========== AUTENTICACIÓN ==========
-  login: async (credentials: { email: string; password: string }): Promise<{ access_token: string }> => {
+  login: async (credentials: { email: string; password: string }): Promise<User> => {
     const response = await axiosInstance.post<any>('/auth/login', credentials);
-    return {
-      access_token: response.data.access_token,
-    };
+    return mapUser(response.data.usuario);
   },
 
   register: async (userData: {
     email: string;
     password: string;
-    full_name: string;
-  }): Promise<{ access_token: string }> => {
+    nombre: string;
+  }): Promise<User> => {
     const response = await axiosInstance.post<any>('/auth/register', userData);
-    return {
-      access_token: response.data.access_token,
-    };
+    return mapUser(response.data.usuario);
   },
 
   getMe: async (): Promise<User> => {

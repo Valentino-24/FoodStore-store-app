@@ -10,7 +10,7 @@ const CheckoutPage: FC = () => {
   const clearCart = useStore((state) => state.clearCart);
   const items = useStore((state) => state.items);
   const total = useStore((state) => state.total);
-  const token = useStore((state) => state.token);
+  const user = useStore((state) => state.user);
   const setAddresses = useStore((state) => state.setAddresses);
   const createOrder = useCreateOrder();
 
@@ -48,10 +48,10 @@ const CheckoutPage: FC = () => {
       }
     };
 
-    if (token) {
+    if (user) {
       loadAddresses();
     }
-  }, [token, setAddresses]);
+  }, [user, setAddresses]);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
