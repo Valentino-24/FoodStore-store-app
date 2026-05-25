@@ -11,7 +11,6 @@ const CheckoutPage: FC = () => {
   const items = useStore((state) => state.items);
   const total = useStore((state) => state.total);
   const token = useStore((state) => state.token);
-  const addresses = useStore((state) => state.addresses);
   const setAddresses = useStore((state) => state.setAddresses);
   const createOrder = useCreateOrder();
 
@@ -52,7 +51,7 @@ const CheckoutPage: FC = () => {
     if (token) {
       loadAddresses();
     }
-  }, [token]);
+  }, [token, setAddresses]);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -112,9 +111,10 @@ const CheckoutPage: FC = () => {
       await createOrder.mutateAsync(orderPayload);
       clearCart();
       navigate('/store/orders');
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error al realizar el pedido:', err);
-      const detail = err.response?.data?.detail || err.response?.data?.message;
+      const errorObj = err as { response?: { data?: { detail?: string; message?: string } } };
+      const detail = errorObj.response?.data?.detail || errorObj.response?.data?.message;
       setError(
         typeof detail === 'string'
           ? detail

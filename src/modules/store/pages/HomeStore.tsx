@@ -8,7 +8,7 @@ import ProductCard from '../components/ProductCard';
 const HomeStore: FC = () => {
   const navigate = useNavigate();
   const addToCart = useStore((state) => state.addToCart);
-  const [filters, setFilters] = useState({ search: '' });
+  const [filters, setFilters] = useState({ busqueda: '' });
 
   const { data: products, isLoading, error } = useProducts(filters);
 
@@ -21,7 +21,7 @@ const HomeStore: FC = () => {
   };
 
   const handleSearchChange = (value: string): void => {
-    setFilters({ ...filters, search: value });
+    setFilters({ ...filters, busqueda: value });
   };
 
   return (

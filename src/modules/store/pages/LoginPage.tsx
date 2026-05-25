@@ -46,9 +46,10 @@ const LoginPage: FC = () => {
         loginAction(res.access_token, userProfile);
       }
       navigate(from, { replace: true });
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error de autenticación:', err);
-      const detail = err.response?.data?.detail || err.response?.data?.message;
+      const errorObj = err as { response?: { data?: { detail?: string; message?: string } } };
+      const detail = errorObj.response?.data?.detail || errorObj.response?.data?.message;
       setError(
         typeof detail === 'string' 
           ? detail 

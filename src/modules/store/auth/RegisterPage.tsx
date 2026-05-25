@@ -44,9 +44,10 @@ const RegisterPage: FC = () => {
       loginAction(res.access_token, userProfile);
       setSuccess(true);
       setTimeout(() => navigate('/store', { replace: true }), 1200);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error al registrarse:', err);
-      const detail = err.response?.data?.detail || err.response?.data?.message;
+      const errorObj = err as { response?: { data?: { detail?: string; message?: string } } };
+      const detail = errorObj.response?.data?.detail || errorObj.response?.data?.message;
       setError(
         typeof detail === 'string'
           ? detail
