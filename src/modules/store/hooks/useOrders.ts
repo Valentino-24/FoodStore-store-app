@@ -1,7 +1,6 @@
-// src/modules/store/hooks/useOrders.ts
-import { 
-  useQuery, 
-  useMutation, 
+import {
+  useQuery,
+  useMutation,
   useQueryClient,
   UseQueryResult,
   UseMutationResult,
@@ -12,7 +11,7 @@ import { Order } from '../types';
 
 export const useOrders = (): UseQueryResult<Order[], Error> => {
   const user = useStore((state) => state.user);
-  
+
   return useQuery({
     queryKey: ['orders', user?.id],
     queryFn: async () => {
@@ -20,8 +19,8 @@ export const useOrders = (): UseQueryResult<Order[], Error> => {
       return response.data;
     },
     enabled: !!user,
-    staleTime: 1000 * 60 * 2, // 2 minutes
-    gcTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 2,
+    gcTime: 1000 * 60 * 5,
   });
 };
 
@@ -29,7 +28,7 @@ export const useOrderById = (
   id: string | undefined
 ): UseQueryResult<Order, Error> => {
   const user = useStore((state) => state.user);
-  
+
   return useQuery({
     queryKey: ['orders', id, user?.id],
     queryFn: async () => {
@@ -54,10 +53,10 @@ export const useCreateOrder = (): UseMutationResult<
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (orderData) => 
+    mutationFn: (orderData) =>
       storeApi.createOrder(orderData).then(res => res.data),
     onSuccess: () => {
-      // Invalidate orders list to trigger refetch
+
       queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error: Error) => {
@@ -65,4 +64,3 @@ export const useCreateOrder = (): UseMutationResult<
     },
   });
 };
-

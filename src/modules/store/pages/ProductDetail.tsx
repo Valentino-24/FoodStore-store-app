@@ -59,7 +59,7 @@ const ProductDetail: FC = () => {
         </button>
 
         <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-8 p-8 md:p-12">
-          {/* Image Container */}
+
           <div className="relative aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center">
             <img
               src={product.image}
@@ -75,10 +75,9 @@ const ProductDetail: FC = () => {
             )}
           </div>
 
-          {/* Info Container */}
           <div className="flex flex-col justify-between">
             <div className="space-y-6">
-              {/* Primary Category */}
+
               {primaryCategory && (
                 <div>
                   <span className="inline-block text-xs font-semibold px-4 py-2 rounded-full bg-sky-50 text-sky-600 uppercase tracking-wider border border-sky-100">
@@ -105,7 +104,6 @@ const ProductDetail: FC = () => {
                 </p>
               </div>
 
-              {/* Secondary Categories */}
               {secondaryCategories && secondaryCategories.length > 0 && (
                 <div className="border-t border-slate-100 pt-6 space-y-3">
                   <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
@@ -124,7 +122,6 @@ const ProductDetail: FC = () => {
                 </div>
               )}
 
-              {/* Ingredients */}
               {product.ingredients && product.ingredients.length > 0 && (
                 <div className="border-t border-slate-100 pt-6 space-y-3">
                   <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider">

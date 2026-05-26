@@ -30,8 +30,7 @@ const CartPage: FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        
-        {/* Header */}
+
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-6 mb-8 gap-4">
           <div>
             <p className="text-sky-500 text-xs font-semibold uppercase tracking-wider">Tu pedido</p>
@@ -44,7 +43,6 @@ const CartPage: FC = () => {
           )}
         </div>
 
-        {/* Content */}
         {items.length === 0 ? (
           <div className="bg-white border border-slate-100 rounded-3xl p-16 text-center max-w-lg mx-auto shadow-sm">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-400 mb-6 border border-slate-100">
@@ -54,7 +52,7 @@ const CartPage: FC = () => {
             </div>
             <h2 className="text-xl font-bold text-slate-800">Tu carrito está vacío</h2>
             <p className="text-slate-500 text-sm mt-2">¿Aún no te has decidido? Explora nuestro exquisito menú.</p>
-            <button 
+            <button
               onClick={() => navigate('/store')}
               className="mt-8 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg hover:shadow-xl transition hover:from-sky-600 hover:to-indigo-700"
             >
@@ -63,20 +61,19 @@ const CartPage: FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* Items List */}
+
             <div className="lg:col-span-8 space-y-4">
               {items.map((item) => (
-                <div 
-                  key={item.id} 
+                <div
+                  key={item.id}
                   className="flex flex-col sm:flex-row items-center justify-between bg-white p-5 rounded-3xl border border-slate-100 shadow-sm gap-4 hover:shadow-md transition"
                 >
                   <div className="flex items-center gap-4 w-full sm:w-auto">
-                    {/* Item Image */}
+
                     <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 bg-slate-50 border border-slate-100">
                       <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                     </div>
-                    {/* Item Info */}
+
                     <div>
                       <h3 className="font-bold text-slate-800 text-sm line-clamp-1">{item.name}</h3>
                       {item.category && (
@@ -86,9 +83,8 @@ const CartPage: FC = () => {
                     </div>
                   </div>
 
-                  {/* Quantity & Total Section */}
                   <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto">
-                    {/* Quantity Picker */}
+
                     <div className="flex items-center border border-slate-200 rounded-2xl bg-slate-50 overflow-hidden shrink-0">
                       <button
                         onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
@@ -107,12 +103,10 @@ const CartPage: FC = () => {
                       </button>
                     </div>
 
-                    {/* Subtotal */}
                     <div className="text-right min-w-[5rem] shrink-0 font-bold text-slate-800 text-sm">
                       ${(item.price * item.quantity).toFixed(2)}
                     </div>
 
-                    {/* Remove Button */}
                     <button
                       onClick={() => handleRemoveItem(item.id)}
                       className="p-2.5 rounded-xl border border-slate-100 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition"
@@ -127,7 +121,6 @@ const CartPage: FC = () => {
               ))}
             </div>
 
-            {/* Summary Sidebar */}
             <div className="lg:col-span-4 bg-white p-8 rounded-3xl border border-slate-100 shadow-sm sticky top-24">
               <h2 className="text-xl font-bold text-slate-800 mb-6 pb-4 border-b border-slate-100">
                 Resumen de Compra

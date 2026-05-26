@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../hooks/useProducts';
 import { useStore } from '../hooks';
@@ -8,9 +8,8 @@ import ProductCard from '../components/ProductCard';
 const HomeStore: FC = () => {
   const navigate = useNavigate();
   const addToCart = useStore((state) => state.addToCart);
-  const [filters, setFilters] = useState({ busqueda: '' });
 
-  const { data: products, isLoading, error } = useProducts(filters);
+  const { data: products, isLoading, error } = useProducts();
 
   const handleAddToCart = (product: Product): void => {
     addToCart({ ...product, quantity: 1 });
@@ -20,36 +19,9 @@ const HomeStore: FC = () => {
     navigate(`/store/products/${productId}`);
   };
 
-  const handleSearchChange = (value: string): void => {
-    setFilters({ ...filters, busqueda: value });
-  };
-
   return (
     <div className="min-h-screen bg-slate-50 pb-16">
-      {/* Header Banner */}
-      <div className="bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 text-white py-16 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div className="space-y-2">
-            <p className="text-sky-100 text-xs font-semibold uppercase tracking-wider">¡Todo lo que buscas, en un solo lugar!</p>
-            <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">Catálogo de Productos</h1>
-            <p className="text-slate-100 text-sm max-w-md">Explora nuestro menú y ordena los platos más frescos y deliciosos directamente a tu puerta.</p>
-          </div>
 
-          <div className="relative w-full max-w-md shrink-0">
-            <input
-              type="text"
-              placeholder="Buscar producto..."
-              onChange={(e) => handleSearchChange(e.target.value)}
-              className="w-full rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 px-5 py-4 pl-12 text-white placeholder-white/60 outline-none transition focus:border-white focus:bg-white focus:text-slate-800 focus:placeholder-slate-400 focus:ring-4 focus:ring-white/10"
-            />
-            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60 focus-within:text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      {/* Products Grid Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         {isLoading && (
           <div className="flex flex-col items-center justify-center py-20 gap-4">

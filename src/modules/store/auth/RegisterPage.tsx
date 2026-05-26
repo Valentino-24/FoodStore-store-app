@@ -1,4 +1,3 @@
-// src/modules/store/auth/RegisterPage.tsx
 import { FC, FormEvent, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../store/useStore';
@@ -23,7 +22,6 @@ const RegisterPage: FC = () => {
     e.preventDefault();
     setError('');
 
-    // Client-side validations
     if (!fullName.trim()) {
       setError('El nombre completo es obligatorio.');
       return;
@@ -60,10 +58,9 @@ const RegisterPage: FC = () => {
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-slate-50 via-indigo-50 to-sky-50 flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Card */}
+
         <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-slate-100 transition-all duration-300 hover:shadow-2xl">
 
-          {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-500 to-sky-500 text-white shadow-lg shadow-indigo-200 mb-4">
               <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,7 +73,6 @@ const RegisterPage: FC = () => {
             </p>
           </div>
 
-          {/* Success message */}
           {success && (
             <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm flex items-center gap-3">
               <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,7 +82,6 @@ const RegisterPage: FC = () => {
             </div>
           )}
 
-          {/* Error message */}
           {error && (
             <div className="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 text-sm flex items-start gap-3">
               <svg className="w-5 h-5 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -96,9 +91,8 @@ const RegisterPage: FC = () => {
             </div>
           )}
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Full Name */}
+
             <div>
               <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
                 Nombre Completo *
@@ -114,7 +108,6 @@ const RegisterPage: FC = () => {
               />
             </div>
 
-            {/* Email */}
             <div>
               <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
                 Correo Electrónico *
@@ -130,7 +123,6 @@ const RegisterPage: FC = () => {
               />
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
                 Contraseña * <span className="normal-case font-normal text-slate-400">(mínimo 6 caracteres)</span>
@@ -164,7 +156,6 @@ const RegisterPage: FC = () => {
               </div>
             </div>
 
-            {/* Confirm Password */}
             <div>
               <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
                 Confirmar Contraseña *
@@ -201,7 +192,7 @@ const RegisterPage: FC = () => {
                     </svg>
                   )}
                 </button>
-                {/* Match indicator */}
+
                 {confirmPassword && (
                   <span className={`absolute right-12 top-1/2 -translate-y-1/2 text-xs font-medium ${
                     confirmPassword === password ? 'text-emerald-500' : 'text-rose-500'
@@ -212,7 +203,6 @@ const RegisterPage: FC = () => {
               </div>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isLoading || success}
@@ -232,7 +222,6 @@ const RegisterPage: FC = () => {
             </button>
           </form>
 
-          {/* Footer Link */}
           <div className="mt-8 pt-6 border-t border-slate-100 text-center">
             <p className="text-sm text-slate-500">
               ¿Ya tenés una cuenta?{' '}
@@ -246,7 +235,6 @@ const RegisterPage: FC = () => {
           </div>
         </div>
 
-        {/* Legal disclaimer */}
         <p className="text-center text-xs text-slate-400 mt-6 px-4">
           Al registrarte, aceptás los términos y condiciones de uso de FoodStore.
         </p>

@@ -1,4 +1,3 @@
-// src/modules/store/hooks/useCategories.ts
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { storeApi } from '../api/storeApi';
 import { Category } from '../types';
@@ -10,8 +9,8 @@ export const useCategories = (): UseQueryResult<Category[], Error> => {
       const response = await storeApi.getCategories();
       return response.data;
     },
-    staleTime: 1000 * 60 * 30, // 30 minutes
-    gcTime: 1000 * 60 * 60, // 1 hour
+    staleTime: 1000 * 60 * 30,
+    gcTime: 1000 * 60 * 60,
   });
 };
 

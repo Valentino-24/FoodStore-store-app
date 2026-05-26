@@ -36,7 +36,7 @@ const Navbar: FC = () => {
     <nav className="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          {/* Logo Brand */}
+
           <Link to="/store" className="flex items-center gap-2.5 group flex-shrink-0">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white flex items-center justify-center shadow-md shadow-sky-100 group-hover:scale-105 transition">
               <svg className="w-5.5 h-5.5" fill="currentColor" viewBox="0 0 24 24">
@@ -48,7 +48,6 @@ const Navbar: FC = () => {
             </span>
           </Link>
 
-          {/* Navigation Links */}
           <div className="flex items-center gap-8">
             <Link
               to="/store"
@@ -60,7 +59,7 @@ const Navbar: FC = () => {
             >
               Catálogo
             </Link>
-            
+
             {user && (
               <Link
                 to="/store/orders"
@@ -76,7 +75,6 @@ const Navbar: FC = () => {
 
             <div className="h-6 w-[1px] bg-slate-200"></div>
 
-            {/* Shopping Cart Icon with Badge */}
             <Link
               to="/store/cart"
               className={`relative p-2.5 rounded-full transition flex-shrink-0 ${
@@ -95,7 +93,6 @@ const Navbar: FC = () => {
               )}
             </Link>
 
-            {/* User Profile & Auth Button */}
             {user ? (
               <div className="flex items-center gap-3 ml-4">
                 <div className="hidden sm:flex flex-col items-end">

@@ -1,4 +1,3 @@
-// src/modules/store/api/axiosConfig.ts
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api/v1';
@@ -17,7 +16,6 @@ interface ErrorResponse {
   code?: string;
 }
 
-// Response interceptor: handle 401 and server errors
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError<ErrorResponse>) => {

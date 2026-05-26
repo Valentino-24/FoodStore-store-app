@@ -1,4 +1,3 @@
-// src/modules/store/components/OrderCard.tsx
 import { FC } from 'react';
 import { Order } from '../types';
 
@@ -63,7 +62,7 @@ const OrderCard: FC<OrderCardProps> = ({ order, onView }) => {
         </div>
       </div>
 
-      <button 
+      <button
         onClick={onView}
         className="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-sm font-semibold hover:shadow-lg hover:from-sky-600 hover:to-indigo-700 transition"
       >

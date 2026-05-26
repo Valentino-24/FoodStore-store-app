@@ -41,14 +41,12 @@ const OrdersPage: FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        
-        {/* Header */}
+
         <div className="border-b border-slate-200 pb-6 mb-8">
           <p className="text-sky-500 text-xs font-semibold uppercase tracking-wider">Historial</p>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Mis Pedidos</h1>
         </div>
 
-        {/* Loading State */}
         {isLoading && (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-t-sky-500 border-slate-200"></div>
@@ -56,7 +54,6 @@ const OrdersPage: FC = () => {
           </div>
         )}
 
-        {/* Error State */}
         {error && (
           <div className="bg-rose-50 border border-rose-100 rounded-3xl p-8 text-center max-w-md mx-auto my-12">
             <svg className="w-12 h-12 text-rose-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,7 +64,6 @@ const OrdersPage: FC = () => {
           </div>
         )}
 
-        {/* Empty State */}
         {!isLoading && !error && (!orders || orders.length === 0) && (
           <div className="bg-white border border-slate-100 rounded-3xl p-16 text-center max-w-lg mx-auto shadow-sm">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 text-slate-400 mb-6 border border-slate-100">
@@ -86,12 +82,11 @@ const OrdersPage: FC = () => {
           </div>
         )}
 
-        {/* Orders Cards Grid */}
         {!isLoading && !error && orders && orders.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {orders.map((order) => (
-              <div 
-                key={order.id} 
+              <div
+                key={order.id}
                 className="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between"
               >
                 <div>

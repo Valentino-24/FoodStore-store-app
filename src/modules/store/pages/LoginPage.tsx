@@ -8,12 +8,12 @@ const LoginPage: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const loginAction = useStore((state) => state.login);
-  
+
   const [isRegister, setIsRegister] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -28,20 +28,20 @@ const LoginPage: FC = () => {
       let userProfile: User;
 
       if (isRegister) {
-        // REGISTER FLOW
+
         if (!fullName.trim()) {
           setError('El nombre completo es obligatorio.');
           setIsLoading(false);
           return;
         }
-        
-        userProfile = await storeApi.register({ 
-          email, 
-          password, 
-          nombre: fullName 
+
+        userProfile = await storeApi.register({
+          email,
+          password,
+          nombre: fullName
         });
       } else {
-        // LOGIN FLOW
+
         userProfile = await storeApi.login({ email, password });
       }
 
@@ -52,8 +52,8 @@ const LoginPage: FC = () => {
       const errorObj = err as { response?: { data?: { detail?: string; message?: string } } };
       const detail = errorObj.response?.data?.detail || errorObj.response?.data?.message;
       setError(
-        typeof detail === 'string' 
-          ? detail 
+        typeof detail === 'string'
+          ? detail
           : 'Ocurrió un error. Por favor verifica los datos ingresados.'
       );
     } finally {
@@ -74,8 +74,8 @@ const LoginPage: FC = () => {
             {isRegister ? 'Crear Cuenta' : '¡Bienvenido!'}
           </h1>
           <p className="text-sm text-slate-500 mt-2">
-            {isRegister 
-              ? 'Regístrate para comprar y seguir tus pedidos.' 
+            {isRegister
+              ? 'Regístrate para comprar y seguir tus pedidos.'
               : 'Inicia sesión para gestionar tus compras.'}
           </p>
         </div>
@@ -162,8 +162,8 @@ const LoginPage: FC = () => {
             }}
             className="text-sm font-medium text-sky-600 hover:text-sky-700 transition"
           >
-            {isRegister 
-              ? '¿Ya tienes una cuenta? Inicia sesión' 
+            {isRegister
+              ? '¿Ya tienes una cuenta? Inicia sesión'
               : '¿No tienes cuenta? Regístrate aquí'}
           </button>
           {!isRegister && (

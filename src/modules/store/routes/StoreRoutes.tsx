@@ -1,4 +1,3 @@
-// src/modules/store/routes/StoreRoutes.tsx
 import { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomeStore from '../pages/HomeStore';

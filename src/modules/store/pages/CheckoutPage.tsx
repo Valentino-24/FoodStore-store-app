@@ -25,12 +25,11 @@ const CheckoutPage: FC = () => {
   const [savedAddresses, setSavedAddresses] = useState<DeliveryAddress[]>([]);
   const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
   const [useExistingAddress, setUseExistingAddress] = useState(false);
-  const [paymentMethodId, setPaymentMethodId] = useState('1'); // Default: 1 (Efectivo)
+  const [paymentMethodId, setPaymentMethodId] = useState('1');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoadingAddresses, setIsLoadingAddresses] = useState(false);
   const [error, setError] = useState('');
 
-  // Load saved addresses on mount
   useEffect(() => {
     const loadAddresses = async () => {
       try {
@@ -78,10 +77,10 @@ const CheckoutPage: FC = () => {
       let addressId: number | undefined;
 
       if (useExistingAddress && selectedAddressId) {
-        // Use existing address
+
         addressId = selectedAddressId;
       } else {
-        // Create new address
+
         if (!formData.address.trim() || !formData.city.trim() || !formData.zipCode.trim()) {
           setError('Por favor completa todos los campos requeridos de la dirección.');
           setIsSubmitting(false);
@@ -98,7 +97,6 @@ const CheckoutPage: FC = () => {
         addressId = addressRes.id;
       }
 
-      // Create order
       const orderPayload = {
         forma_pago_id: Number(paymentMethodId),
         direccion_entrega_id: addressId,
@@ -142,15 +140,14 @@ const CheckoutPage: FC = () => {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Form Side */}
+
           <form onSubmit={handleSubmit} className="lg:col-span-7 space-y-8 bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
-            
-            {/* Address Selection */}
+
             <div className="space-y-6">
               <h2 className="text-xl font-bold text-slate-800 border-b border-slate-100 pb-4">
                 Información de Envío
               </h2>
-              
+
               {!isLoadingAddresses && savedAddresses.length > 0 && (
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
@@ -164,7 +161,7 @@ const CheckoutPage: FC = () => {
                       <span className="text-sm font-medium text-slate-700">Usar dirección guardada</span>
                     </label>
                   </div>
-                  
+
                   {useExistingAddress && (
                     <select
                       value={selectedAddressId || ''}
@@ -179,7 +176,7 @@ const CheckoutPage: FC = () => {
                       ))}
                     </select>
                   )}
-                  
+
                   <div className="flex items-center gap-4">
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input
@@ -193,7 +190,7 @@ const CheckoutPage: FC = () => {
                   </div>
                 </div>
               )}
-              
+
               {!useExistingAddress && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="md:col-span-2">
@@ -272,12 +269,11 @@ const CheckoutPage: FC = () => {
               )}
             </div>
 
-            {/* Payment Selection */}
             <div className="space-y-6">
               <h2 className="text-xl font-bold text-slate-800 border-b border-slate-100 pb-4">
                 Método de Pago
               </h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   { id: '1', name: 'Efectivo', desc: 'Paga en mano al recibir' },
@@ -285,11 +281,11 @@ const CheckoutPage: FC = () => {
                   { id: '3', name: 'Tarjeta de Débito', desc: 'Débito directo' },
                   { id: '4', name: 'Transferencia Bancaria', desc: 'Transferencia directa por CBU/Alias' },
                 ].map((pm) => (
-                  <label 
-                    key={pm.id} 
+                  <label
+                    key={pm.id}
                     className={`flex flex-col p-4 rounded-2xl border cursor-pointer transition focus-within:ring-4 focus-within:ring-sky-100 ${
-                      paymentMethodId === pm.id 
-                        ? 'border-sky-500 bg-sky-50/30' 
+                      paymentMethodId === pm.id
+                        ? 'border-sky-500 bg-sky-50/30'
                         : 'border-slate-200 hover:border-slate-300'
                     }`}
                   >
@@ -329,13 +325,12 @@ const CheckoutPage: FC = () => {
             </button>
           </form>
 
-          {/* Summary Side */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm sticky top-6">
               <h2 className="text-xl font-bold text-slate-800 border-b border-slate-100 pb-4 mb-6">
                 Resumen de Compra
               </h2>
-              
+
               <div className="divide-y divide-slate-100 max-h-[300px] overflow-y-auto pr-2">
                 {items.map((item) => (
                   <div key={item.id} className="py-4 flex justify-between gap-4">

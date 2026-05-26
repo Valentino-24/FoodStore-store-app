@@ -3,29 +3,24 @@ import { persist } from 'zustand/middleware';
 import { CartItem, User, DeliveryAddress } from '../types';
 
 interface StoreState {
-  // Auth
+
   user: User | null;
-  
-  // Cart
+
   items: CartItem[];
   total: number;
-  
-  // User data
+
   addresses: DeliveryAddress[];
   selectedAddressId: number | null;
-  
-  // Actions
+
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
   updateCartQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
-  
-  // Auth actions
+
   setUser: (user: User) => void;
   login: (user: User) => void;
   logout: () => void;
-  
-  // Address actions
+
   setAddresses: (addresses: DeliveryAddress[]) => void;
   addAddress: (address: DeliveryAddress) => void;
   removeAddress: (id: number) => void;
@@ -35,18 +30,15 @@ interface StoreState {
 export const useStore = create<StoreState>()(
   persist(
     (set, get) => ({
-      // Auth state
+
       user: null,
-      
-      // Cart state
+
       items: [],
       total: 0,
-      
-      // User data
+
       addresses: [],
       selectedAddressId: null,
 
-      // ========== CART ACTIONS ==========
       addToCart: (item: CartItem) => {
         const state = get();
         const existingItem = state.items.find((i) => i.id === item.id);
@@ -82,7 +74,6 @@ export const useStore = create<StoreState>()(
 
       clearCart: () => set({ items: [], total: 0 }),
 
-      // ========== AUTH ACTIONS ==========
       setUser: (user: User) => set({ user }),
 
       login: (user: User) => {
@@ -99,9 +90,8 @@ export const useStore = create<StoreState>()(
         });
       },
 
-      // ========== ADDRESS ACTIONS ==========
       setAddresses: (addresses: DeliveryAddress[]) => {
-        // Auto-select first address if none selected
+
         const selectedAddressId = get().selectedAddressId || (addresses.length > 0 ? addresses[0].id : null);
         set({ addresses, selectedAddressId });
       },

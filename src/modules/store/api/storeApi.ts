@@ -1,8 +1,7 @@
-// src/modules/store/api/storeApi.ts
 import axiosInstance from './axiosConfig';
-import { 
-  Product, 
-  Order, 
+import {
+  Product,
+  Order,
   ApiResponse,
   Category,
   Ingredient,
@@ -15,11 +14,6 @@ interface ProductFilters {
   busqueda?: string;
 }
 
-// ==================== MAPPERS ====================
-
-/**
- * Transform product fields from Spanish (backend) to English (frontend)
- */
 const mapProduct = (p: any): Product => ({
   id: String(p.id),
   name: p.nombre,
@@ -39,9 +33,6 @@ const mapProduct = (p: any): Product => ({
   createdAt: p.created_at || new Date().toISOString(),
 });
 
-/**
- * Map Spanish status codes from backend to English enum states
- */
 const mapStatus = (statusCodigo: string): 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled' => {
   const mapping: Record<string, 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled'> = {
     PENDIENTE: 'pending',
@@ -54,9 +45,6 @@ const mapStatus = (statusCodigo: string): 'pending' | 'confirmed' | 'shipped' | 
   return mapping[statusCodigo] || 'pending';
 };
 
-/**
- * Transform order fields from Spanish (backend) to English (frontend)
- */
 const mapOrder = (o: any): Order => ({
   id: String(o.id),
   userId: String(o.usuario_id),
@@ -79,9 +67,6 @@ const mapOrder = (o: any): Order => ({
   },
 });
 
-/**
- * Map user from backend format
- */
 const mapUser = (u: any): User => ({
   id: u.id,
   email: u.email,
@@ -90,10 +75,8 @@ const mapUser = (u: any): User => ({
   created_at: u.created_at,
 });
 
-// ==================== API CALLS ====================
-
 export const storeApi = {
-  // ========== PRODUCTOS ==========
+
   getProducts: async (filters: ProductFilters = {}): Promise<ApiResponse<Product[]>> => {
     const params: any = {};
     if (filters.busqueda) {
@@ -117,7 +100,6 @@ export const storeApi = {
     };
   },
 
-  // ========== CATEGORÍAS ==========
   getCategories: async (): Promise<ApiResponse<Category[]>> => {
     const response = await axiosInstance.get<{ items: any[] }>('/categorias');
     return {
@@ -142,7 +124,6 @@ export const storeApi = {
     };
   },
 
-  // ========== INGREDIENTES ==========
   getIngredients: async (): Promise<ApiResponse<Ingredient[]>> => {
     const response = await axiosInstance.get<any[]>('/ingredientes');
     return {
@@ -167,7 +148,6 @@ export const storeApi = {
     };
   },
 
-  // ========== PEDIDOS ==========
   getOrders: async (): Promise<ApiResponse<Order[]>> => {
     const response = await axiosInstance.get<any[]>('/pedidos');
     return {
@@ -196,7 +176,6 @@ export const storeApi = {
     };
   },
 
-  // ========== DIRECCIONES ==========
   createAddress: async (addressData: {
     alias: string;
     direccion: string;
@@ -231,7 +210,6 @@ export const storeApi = {
     await axiosInstance.delete(`/direcciones/${id}`);
   },
 
-  // ========== AUTENTICACIÓN ==========
   login: async (credentials: { email: string; password: string }): Promise<User> => {
     const response = await axiosInstance.post<any>('/auth/login', credentials);
     return mapUser(response.data.usuario);

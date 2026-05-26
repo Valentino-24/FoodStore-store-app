@@ -62,7 +62,7 @@ const OrderDetail: FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        {/* Back Button */}
+
         <button
           onClick={() => navigate('/store/orders')}
           className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition mb-8"
@@ -73,10 +73,8 @@ const OrderDetail: FC = () => {
           Volver a Mis Pedidos
         </button>
 
-        {/* Detail Panel */}
         <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden p-8 md:p-12 space-y-8">
-          
-          {/* Header section */}
+
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-100 pb-6">
             <div>
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Historial de Pedido</span>
@@ -98,7 +96,6 @@ const OrderDetail: FC = () => {
             </div>
           </div>
 
-          {/* Delivery & Payment details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-100 text-sm">
             <div className="space-y-2">
               <h3 className="font-bold text-slate-700 uppercase text-[10px] tracking-wider">Información de Envío</h3>
@@ -116,10 +113,9 @@ const OrderDetail: FC = () => {
             </div>
           </div>
 
-          {/* Items Section */}
           <div className="space-y-4">
             <h2 className="text-lg font-bold text-slate-800 border-b border-slate-50 pb-2">Productos Pedidos</h2>
-            
+
             <div className="divide-y divide-slate-100">
               {order.items.map((item) => (
                 <div key={item.productId} className="py-4 flex justify-between items-center text-sm">
@@ -133,7 +129,6 @@ const OrderDetail: FC = () => {
             </div>
           </div>
 
-          {/* Total Section */}
           <div className="border-t border-slate-100 pt-6 flex justify-between items-center">
             <span className="text-base font-bold text-slate-800">Monto Total</span>
             <span className="text-2xl font-extrabold text-sky-600">${order.total.toFixed(2)}</span>

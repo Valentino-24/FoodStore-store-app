@@ -17,8 +17,8 @@ const ProductCard: FC<ProductCardProps> = ({
   return (
     <div className="group bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="relative aspect-video overflow-hidden bg-slate-50 border-b border-slate-100">
-        <img 
-          src={product.image} 
+        <img
+          src={product.image}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />

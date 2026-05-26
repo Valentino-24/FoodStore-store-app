@@ -1,4 +1,3 @@
-// src/modules/store/hooks/useProducts.ts
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { storeApi } from '../api/storeApi';
 import { Product } from '../types';
@@ -17,8 +16,8 @@ export const useProducts = (
       const response = await storeApi.getProducts(filters);
       return response.data;
     },
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    gcTime: 1000 * 60 * 10, // 10 minutes
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
     retry: 2,
     refetchOnWindowFocus: false,
   });
@@ -35,7 +34,7 @@ export const useProductById = (
       return response.data;
     },
     enabled: !!id,
-    staleTime: 1000 * 60 * 10, // 10 minutes
-    gcTime: 1000 * 60 * 30, // 30 minutes
+    staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 30,
   });
 };
