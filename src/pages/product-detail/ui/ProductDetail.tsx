@@ -131,12 +131,25 @@ const ProductDetail: FC = () => {
                     {product.ingredients.map((ing) => (
                       <span
                         key={ing.id}
-                        className="text-xs bg-emerald-50 text-emerald-700 font-medium px-3 py-1.5 rounded-lg border border-emerald-200 inline-flex items-center gap-1"
+                        className={`text-xs font-medium px-3 py-1.5 rounded-lg border inline-flex items-center gap-1 ${
+                          ing.es_alergeno
+                            ? 'bg-rose-50 text-rose-700 border-rose-200'
+                            : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                        }`}
                       >
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                        {ing.nombre}
+                        {ing.es_alergeno ? (
+                          <>
+                            <span className="font-bold">⚠️ Alérgeno: </span>
+                            {ing.nombre}
+                          </>
+                        ) : (
+                          <>
+                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                            {ing.nombre}
+                          </>
+                        )}
                       </span>
                     ))}
                   </div>

@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { FC, ChangeEvent, FormEvent, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../entities/user/model/userStore';
 import { useCreateOrder } from '../../../entities/order/model/useOrders';
@@ -33,6 +33,7 @@ const CheckoutPage: FC = () => {
   const [useExistingAddress, setUseExistingAddress] = useState(false);
   const [paymentMethodId, setPaymentMethodId] = useState('1');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
   const [isLoadingAddresses, setIsLoadingAddresses] = useState(false);
   const [error, setError] = useState('');
 
@@ -106,11 +107,15 @@ const CheckoutPage: FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    if (isSubmittingRef.current) return;
+    
     setError('');
+    isSubmittingRef.current = true;
     setIsSubmitting(true);
 
     if (items.length === 0) {
       setError('Tu carrito está vacío. Agrega productos antes de realizar un pedido.');
+      isSubmittingRef.current = false;
       setIsSubmitting(false);
       return;
     }
@@ -123,6 +128,7 @@ const CheckoutPage: FC = () => {
       } else {
         if (!formData.address.trim() || !formData.city.trim()) {
           setError('Por favor completa todos los campos requeridos de la dirección.');
+          isSubmittingRef.current = false;
           setIsSubmitting(false);
           return;
         }
@@ -167,6 +173,7 @@ const CheckoutPage: FC = () => {
           : 'Ocurrió un error al procesar el pedido. Verifica los datos o el stock.'
       );
     } finally {
+      isSubmittingRef.current = false;
       setIsSubmitting(false);
     }
   };

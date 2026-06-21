@@ -8,8 +8,11 @@ import CheckoutPage from '../../pages/checkout/ui/CheckoutPage';
 import ProductDetail from '../../pages/product-detail/ui/ProductDetail';
 import UserProfile from '../../pages/profile/ui/UserProfile';
 import ProtectedRoute from './ProtectedRoute';
+import { useWebSocket } from '../../shared/hooks/useWebSocket';
 
 const StoreRoutes: FC = () => {
+  useWebSocket();
+
   return (
     <Routes>
       <Route path="" element={<HomeStore />} />

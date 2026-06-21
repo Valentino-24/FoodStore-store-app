@@ -26,6 +26,7 @@ const mapProduct = (p: any): Product => {
     price: Number(p.precio_base),
     image: imageUrl,
     stock: Number(p.stock_cantidad || 0),
+    disponible: p.disponible !== false,
     category: p.categorias?.find((c: any) => c.es_principal)?.nombre || '',
     categories: p.categorias?.map((c: any) => ({
       id: c.id,
@@ -34,6 +35,7 @@ const mapProduct = (p: any): Product => {
     ingredients: p.ingredientes?.map((i: any) => ({
       id: i.id,
       nombre: i.nombre,
+      es_alergeno: i.es_alergeno,
     })) || [],
     createdAt: p.created_at || new Date().toISOString(),
   };
@@ -96,9 +98,10 @@ export const storeApi = {
       params.categoria_id = filters.categoria_id;
     }
     const response = await axiosInstance.get<{ items: any[] }>('/productos', { params });
+    const mappedItems = response.data.items?.map(mapProduct) || [];
     return {
       success: true,
-      data: response.data.items?.map(mapProduct) || [],
+      data: mappedItems.filter((p) => p.disponible !== false),
     };
   },
 

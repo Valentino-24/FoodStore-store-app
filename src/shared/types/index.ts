@@ -9,6 +9,7 @@ export interface Ingredient {
   id: number;
   nombre: string;
   descripcion?: string;
+  es_alergeno?: boolean;
 }
 
 export interface Product {
@@ -19,6 +20,7 @@ export interface Product {
   image: string;
   category?: string;
   stock: number;
+  disponible?: boolean;
   createdAt: string;
   categories?: Category[];
   ingredients?: Ingredient[];
