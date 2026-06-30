@@ -5,12 +5,6 @@ import { useCreateOrder } from '../../../entities/order/model/useOrders';
 import { storeApi } from '../../../shared/api/storeApi';
 import { ShippingInfo, DeliveryAddress } from '../../../shared/types';
 
-declare global {
-  interface Window {
-    MercadoPago: any;
-  }
-}
-
 const CheckoutPage: FC = () => {
   const navigate = useNavigate();
   const clearCart = useStore((state) => state.clearCart);
@@ -37,27 +31,8 @@ const CheckoutPage: FC = () => {
   const [isLoadingAddresses, setIsLoadingAddresses] = useState(false);
   const [error, setError] = useState('');
 
-  const MERCADOPAGO_PUBLIC_KEY = import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY || 'APP_USR-xxxxxxx';
-
-  // Load MercadoPago SDK
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://sdk.mercadopago.com/js/v2';
-    script.async = true;
-    document.body.appendChild(script);
-
-    script.onload = () => {
-      if (window.MercadoPago) {
-        window.MercadoPago.setPublishableKey(MERCADOPAGO_PUBLIC_KEY);
-      }
-    };
-
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, [MERCADOPAGO_PUBLIC_KEY]);
+  // Checkout Pro (redirect flow) — no necesita SDK en el frontend.
+  // MercadoPago maneja todo en su propia página de pago.
 
   useEffect(() => {
     const loadAddresses = async () => {

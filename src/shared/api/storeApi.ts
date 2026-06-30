@@ -15,9 +15,12 @@ interface ProductFilters {
 }
 
 const mapProduct = (p: any): Product => {
-  const imageUrl = (p.imagenes_url && p.imagenes_url.length > 0)
+  const firstImage = (p.imagenes_url && p.imagenes_url.length > 0)
     ? p.imagenes_url[0]
-    : (p.imagenes || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=60');
+    : null;
+  const imageUrl = (typeof firstImage === 'string')
+    ? firstImage
+    : (firstImage?.url || firstImage?.secure_url || p.imagenes || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=60');
 
   return {
     id: String(p.id),
