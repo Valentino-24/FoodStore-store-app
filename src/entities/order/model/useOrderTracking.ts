@@ -32,9 +32,8 @@ export const useOrderTracking = (
     const mapping: Record<string, 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled'> = {
       PENDIENTE: 'pending',
       CONFIRMADO: 'confirmed',
-      EN_PREP: 'confirmed',
-      EN_PREPARACION: 'confirmed',
-      EN_CAMINO: 'shipped',
+      EN_PREP: 'shipped',
+      EN_PREPARACION: 'shipped',
       ENTREGADO: 'delivered',
       CANCELADO: 'cancelled',
     };

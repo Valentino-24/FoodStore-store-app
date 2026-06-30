@@ -31,9 +31,6 @@ const CheckoutPage: FC = () => {
   const [isLoadingAddresses, setIsLoadingAddresses] = useState(false);
   const [error, setError] = useState('');
 
-  // Checkout Pro (redirect flow) — no necesita SDK en el frontend.
-  // MercadoPago maneja todo en su propia página de pago.
-
   useEffect(() => {
     const loadAddresses = async () => {
       try {
@@ -130,11 +127,9 @@ const CheckoutPage: FC = () => {
       const orderResponse = await createOrder.mutateAsync(orderPayload);
       const orderId = orderResponse.id;
 
-      // If MercadoPago payment method, redirect to checkout
       if (paymentMethodId === '5') {
         await handleMercadoPagoCheckout(orderId);
       } else {
-        // Other payment methods - clear cart and redirect to orders
         clearCart();
         navigate('/store/orders');
       }

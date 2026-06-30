@@ -31,7 +31,7 @@ const OrdersPage: FC = () => {
     const labels: Record<string, string> = {
       pending: 'Pendiente',
       confirmed: 'Confirmado',
-      shipped: 'En Camino',
+      shipped: 'En Preparación',
       delivered: 'Entregado',
       cancelled: 'Cancelado',
     };

@@ -48,8 +48,7 @@ const mapStatus = (statusCodigo: string): 'pending' | 'confirmed' | 'shipped' | 
   const mapping: Record<string, 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled'> = {
     PENDIENTE: 'pending',
     CONFIRMADO: 'confirmed',
-    EN_PREP: 'confirmed',
-    EN_CAMINO: 'shipped',
+    EN_PREP: 'shipped',
     ENTREGADO: 'delivered',
     CANCELADO: 'cancelled',
   };

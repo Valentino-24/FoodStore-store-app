@@ -62,15 +62,6 @@ const OrderDetail: FC = () => {
       },
       {
         status: 'delivered',
-        label: 'En Camino',
-        description: 'Tu pedido está en camino hacia ti',
-        icon: '🚗',
-        color: 'bg-purple-50 text-purple-700 border-purple-200',
-        completed: currentDisplayStatus === 'delivered',
-        active: currentDisplayStatus === 'delivered',
-      },
-      {
-        status: 'delivered',
         label: 'Entregado',
         description: 'Tu pedido ha sido entregado',
         icon: '🎉',
